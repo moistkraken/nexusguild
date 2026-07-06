@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Orbitron", "Share Tech Mono", sans-serif;
+  --font-mono: "JetBrains Mono", "Share Tech Mono", monospace;
+
+  --color-void: #050507;
+  --color-void-2: #0a0a10;
+  --color-surface: #0d0d14;
+  --color-surface-2: #12121c;
+  --color-surface-3: #191926;
+
+  --color-cyan: #00f0ff;
+  --color-cyan-dim: #00a8b8;
+  --color-magenta: #ff2ee8;
+  --color-magenta-dim: #b81fa8;
+  --color-acid: #baff29;
+  --color-acid-dim: #83b81c;
+  --color-amber: #ffb703;
+  --color-danger: #ff3b5c;
+
+  --color-ink: #e8fbff;
+  --color-ink-dim: #7f8ea0;
+  --color-ink-dimmer: #4a5568;
+}
+
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    overscroll-behavior-y: none;
+    min-height: 100dvh;
+  }
+
+  ::selection {
+    background: var(--color-cyan);
+    color: #000;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-cyan-dim);
+  }
+
+  input, select, textarea, button {
+    font-family: inherit;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .bg-scanlines {
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.018) 0px,
+      rgba(255, 255, 255, 0.018) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 6px rgba(0,240,255,0.7), 0 0 18px rgba(0,240,255,0.35);
+  }
+  .text-glow-magenta {
+    text-shadow: 0 0 6px rgba(255,46,232,0.7), 0 0 18px rgba(255,46,232,0.35);
+  }
+  .text-glow-acid {
+    text-shadow: 0 0 6px rgba(186,255,41,0.7), 0 0 18px rgba(186,255,41,0.35);
+  }
+
+  .clip-notch {
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  }
+  .clip-notch-sm {
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 1.6s ease-in-out infinite;
+}
+
+@keyframes scan-sweep {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+.animate-scan-sweep {
+  animation: scan-sweep 3s linear infinite;
+}
+
+@keyframes glitch-in {
+  0% { opacity: 0; transform: translate3d(-6px, 0, 0); filter: blur(2px); clip-path: inset(0 0 60% 0); }
+  20% { opacity: 1; transform: translate3d(4px, 0, 0); clip-path: inset(30% 0 10% 0); }
+  40% { transform: translate3d(-3px, 0, 0); clip-path: inset(10% 0 50% 0); }
+  60% { transform: translate3d(2px, 0, 0); clip-path: inset(60% 0 0 0); filter: blur(0.5px); }
+  80% { transform: translate3d(-1px, 0, 0); clip-path: inset(0 0 0 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); clip-path: inset(0 0 0 0); }
+}
+.animate-glitch-in {
+  animation: glitch-in 0.5s steps(2, jump-end) both;
+}
+
+@keyframes flicker-in {
+  0%, 100% { opacity: 1; }
+  8% { opacity: 0.4; }
+  10% { opacity: 1; }
+  20% { opacity: 0.6; }
+  22% { opacity: 1; }
+}
+.animate-flicker-in {
+  animation: flicker-in 0.8s ease-out both;
+}
+
+@keyframes rise-fade {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-rise-fade {
+  animation: rise-fade 0.4s ease-out both;
+}
+
+@keyframes pr-burst {
+  0% { transform: scale(0.6); opacity: 0; }
+  50% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pr-burst {
+  animation: pr-burst 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
